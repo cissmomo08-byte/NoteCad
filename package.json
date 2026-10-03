@@ -11,10 +11,10 @@
   },
   "scripts": {
     "start": "electron .",
-    "dist:mac": "electron-builder --mac dmg zip --universal",
-    "dist:win": "electron-builder --win nsis portable --x64",
-    "dist:linux": "electron-builder --linux AppImage deb --x64",
-    "dist": "electron-builder"
+    "dist:mac": "electron-builder --mac dmg zip --universal --publish never",
+    "dist:win": "electron-builder --win nsis portable --x64 --publish never",
+    "dist:linux": "electron-builder --linux AppImage --x64 --publish never",
+    "dist": "electron-builder --publish never"
   },
   "devDependencies": {
     "electron": "44.5.1",
@@ -55,10 +55,7 @@
     },
     "linux": {
       "category": "Graphics",
-      "target": [
-        "AppImage",
-        "deb"
-      ]
+      "target": ["AppImage"]
     }
   }
 }

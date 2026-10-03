@@ -8,7 +8,7 @@ Les téléchargements seront ajoutés dans [Releases](https://github.com/cissmom
 
 - **Windows** : installateur et version portable `.exe`.
 - **macOS** : image `.dmg` universelle pour Mac Intel et Apple Silicon.
-- **Linux** : `.AppImage` et `.deb`.
+- **Linux** : `.AppImage` portable.
 - **Navigateur** : `NoteCad.html`, utilisable hors ligne.
 
 La première version installable n’est pas encore publiée. Les compilations automatiques seront vérifiées avant de publier les téléchargements.

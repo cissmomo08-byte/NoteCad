@@ -4,7 +4,7 @@
 
 - Windows 64 bits : installateur `.exe` et version portable `.exe`.
 - macOS : image `.dmg` et archive `.zip` universelles pour Mac Intel et Apple Silicon.
-- Linux 64 bits : `.AppImage` et `.deb`.
+- Linux 64 bits : `.AppImage` portable.
 
 La chaîne de compilation est configurée dans `package.json` et `.github/workflows/release.yml`. Une étiquette Git de version au format `v0.2.0` déclenchera la création des paquets dans GitHub Actions et préparera un brouillon de version GitHub avec les fichiers à télécharger. Le brouillon doit être vérifié et publié depuis GitHub avant que les liens soient publics.
 

@@ -1,0 +1,70 @@
+name: Build NoteCad installers
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ${{ matrix.platform }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macOS Universal
+            os: macos-latest
+            command: npm run dist:mac
+            artifact: macos
+          - platform: Windows 64-bit
+            os: windows-latest
+            command: npm run dist:win
+            artifact: windows
+          - platform: Linux 64-bit
+            os: ubuntu-latest
+            command: npm run dist:linux
+            artifact: linux
+
+    steps:
+      - name: Get source
+        uses: actions/checkout@v4
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install build tools
+        run: npm install
+      - name: Create installer
+        run: ${{ matrix.command }}
+      - name: Save installer files
+        uses: actions/upload-artifact@v4
+        with:
+          name: notecad-${{ matrix.artifact }}
+          path: release/*
+          if-no-files-found: error
+          retention-days: 7
+
+  draft-release:
+    name: Prepare downloadable release
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Get source
+        uses: actions/checkout@v4
+      - name: Download installers
+        uses: actions/download-artifact@v4
+        with:
+          path: installers
+          merge-multiple: true
+      - name: Add portable web app
+        run: cp index.html installers/NoteCad.html
+      - name: Create draft release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          generate_release_notes: true
+          files: installers/*
